@@ -1,6 +1,32 @@
 //BUDGET CONTROLLER
 var budgetController = (function (){
-    //Code
+    
+    var Expense = function(id, description, value){
+        this.id = id;
+        this.description = descriptionl
+        this.value= value;
+    };
+    
+    var Income = function(id, description, value){
+        this.id = id;
+        this.description = descriptionl
+        this.value= value;
+    };
+    
+    
+    
+    var data = {
+        allItems: {
+            exp: [],
+            inc: []
+        },
+        totals: {
+           exp: 0,
+           inc: 0 
+        }
+        
+    };
+
 })();
 
 //UI CONTROLLER
@@ -33,7 +59,6 @@ var UIController = (function (){
 
 var controller = (function (budgetCtrl, UICtrl){
 
-    
     var setUpEventListeners = function() {
     var DOM = UICtrl.getDOMstrings();
     document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
