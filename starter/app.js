@@ -30,9 +30,21 @@ var UIController = (function (){
 })();
 
 //GLOBAL APP CONTROLLER
+
 var controller = (function (budgetCtrl, UICtrl){
+
+    
+    var setUpEventListeners = function() {
+    var DOM = UICtrl.getDOMstrings();
+    document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
+    document.addEventListener('keypress', function(event){
+    if(event.keycode === 13 || event.which === 13){
+        ctrlAddItem();
+        }
+    });
+};
+
    
-var DOM = UICtrl.getDOMstrings();
 var ctrlAddItem = function(){
     
     //Get input data
@@ -48,17 +60,17 @@ var ctrlAddItem = function(){
          
     }
     
-    document.querySelector(DOM.inputButton).addEventListener('click', ctrlAddItem);
-
-    document.addEventListener('keypress', function(event){
-        if(event.keycode === 13 || event.which === 13){
-            ctrlAddItem();
-        }
-    });
+return {
+    init: function () {
+        console.log('Application has started');
+        setUpEventListeners();
+    }
+};
+  
 
 })(budgetController,UIController);
 
-
+controller.init();
 
 
 
