@@ -55,6 +55,15 @@ var budgetController = (function (){
 
 })(); //End of budgetController IIFE
 
+
+////////////////////////////////////////////////////////////
+
+/// James, Pleasse Review Below :)                      ///
+
+///////////////////////////////////////////////////////////
+
+
+
 //UI CONTROLLER
 var UIController = (function (){
 
@@ -62,7 +71,9 @@ var UIController = (function (){
       inputType: '.add__type',
       inputDescription: '.add__description',
       inputValue: '.add__value',
-      inputButton: '.add__btn'
+      inputButton: '.add__btn',
+      incomeContainer: '.income__list',
+      expensesContainer: '.expenses__list'        //<<<<<<<<<<<< Added New property here
     }
     
     return {
@@ -73,6 +84,29 @@ var UIController = (function (){
             value: document.querySelector(DOMstrings.inputValue).value
             };
         },
+        
+        addListItem: function(obj, type){      //<<<<<<<<<<<<<< This function is where im getting confused, How it is actually  elements and then printing it to the DOM seems ike a confisuing process?
+            var html, newHtml, element;
+            
+          // Create HTML string with placeholder test
+            
+            if(type === "inc"){     //<<<<<<<<<<<<<<< Here I have an If statement, which creates HTML, depending on the ocndition.
+                
+                element = DOMstrings.incomeContainer;
+                html = '<div class="item clearfix" id="inc-%id%"> <div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+            } else if (type === "exp"){
+                element = DOMstrings.expensesContainer;
+                '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+        }
+          // Replace placeholder text with actual data
+             newHtml = html.replace('%id%', 'obj.id');
+             newHtml = html.replace('%description%', 'obj.description');
+             newHtml = html.replace('%value%', 'obj.value');
+
+          // insert HTML into the dom
+            document.querySelector(element).insertAdjacentHTML('beforeend', newHtml); //<<<<<< This is a new function ive never used before.
+        },
+        
         getDOMstrings: function(){
         return DOMstrings;
     }
@@ -104,9 +138,9 @@ var ctrlAddItem = function(){
     input = UICtrl.getInput();
     
     //Add item to budget controller
-    newItem = budgetCtrl.addItem(input.type, input.description, input.value);    
+    newItem = budgetCtrl.addItem(input.type, input.description, input.value); 
     //display to UI controller
-        
+    UICtrl.addListItem(newItem, input.type);  //<<<<<<<<<<<< Here we add the item to the DOM
     // calculate the budget
     
     // Display the budget   
